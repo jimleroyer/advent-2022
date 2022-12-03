@@ -67,14 +67,8 @@ scoreGame Win = 6
 scoreGame Draw = 3
 scoreGame Lose = 0
 
--- score:: hisMove -> myMove -> result
 score :: Move -> Move -> Int
 score hisMove myMove = scoreGame (play hisMove myMove) + scoreMove myMove
-
-main :: IO ()
-main = do
-  lines <- B.lines <$> B.readFile filename
-  print lines
 
 part1 :: IO ()
 part1 = do
