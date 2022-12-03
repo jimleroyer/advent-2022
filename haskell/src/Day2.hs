@@ -5,7 +5,6 @@ module Day2 (part1, part2) where
 import Control.Applicative ()
 import qualified Data.ByteString.Lazy.Char8 as B (lines, readFile, unpack)
 import Data.List ()
-import Data.Typeable (typeOf)
 import System.IO ()
 
 filename :: FilePath
