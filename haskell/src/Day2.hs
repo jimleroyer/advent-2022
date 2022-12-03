@@ -11,7 +11,7 @@ import System.IO ()
 filename :: FilePath
 filename = "./data/day02-input.txt"
 
-data Move = Rock | Paper | Scissor deriving (Show, Eq)
+data Move = Rock | Paper | Scissor deriving (Show, Eq, Enum)
 
 data Game = Win | Draw | Lose deriving (Show, Eq)
 
@@ -31,31 +31,29 @@ intoPlan 'X' = Lose
 intoPlan 'Y' = Draw
 intoPlan 'Z' = Win
 
+winOver :: Move -> Move
+winOver m
+  | m == Rock = Scissor
+  | otherwise = pred m
+
+loseOver :: Move -> Move
+loseOver m
+  | m == Scissor = Rock
+  | otherwise = succ m
+
 scorePlan :: [Char] -> Int
 scorePlan (x : ' ' : y : _)
-  | m == Rock && p == Win = score Rock Paper
-  | m == Rock && p == Lose = score Rock Scissor
-  | m == Rock && p == Draw = score Rock Rock
-  | m == Paper && p == Win = score Paper Scissor
-  | m == Paper && p == Lose = score Paper Rock
-  | m == Paper && p == Draw = score Paper Paper
-  | m == Scissor && p == Win = score Scissor Rock
-  | m == Scissor && p == Lose = score Scissor Paper
-  | m == Scissor && p == Draw = score Scissor Scissor
+  | p == Win = score hisMove (loseOver hisMove)
+  | p == Draw = score hisMove hisMove
+  | p == Lose = score hisMove (winOver hisMove)
   where
-    (m, p) = (intoMove x, intoPlan y)
+    (hisMove, p) = (intoMove x, intoPlan y)
 
--- play:: hisMove -> myMove -> Result
 play :: Move -> Move -> Game
-play Rock Paper = Win -- his rock against my paper: I win
-play Rock Scissor = Lose
-play Rock Rock = Draw
-play Paper Rock = Lose -- his paper against my rock: I lose
-play Paper Scissor = Win
-play Paper Paper = Draw
-play Scissor Rock = Win
-play Scissor Paper = Lose
-play Scissor Scissor = Draw
+play hisMove myMove
+  | hisMove == myMove = Draw
+  | hisMove == winOver myMove = Win
+  | hisMove == loseOver myMove = Lose
 
 scoreMove :: Move -> Int
 scoreMove Rock = 1
