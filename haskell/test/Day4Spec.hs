@@ -9,8 +9,6 @@ import Day4
     intoPair,
     intoPairs,
     overlaps,
-    part1,
-    part2,
     solve1,
     solve2,
   )

@@ -4,9 +4,8 @@ module Day4
   ( contains,
     intoPair,
     intoPairs,
+    main,
     overlaps,
-    part1,
-    part2,
     solve1,
     solve2,
   )
@@ -15,6 +14,7 @@ where
 import Data.List (intersect, isInfixOf, isSubsequenceOf)
 import Data.List.Split (splitOn)
 import System.IO ()
+import Text.Printf (printf)
 
 filename :: FilePath
 filename = "./data/day04-input.txt"
@@ -59,14 +59,9 @@ solve1 pairs = sum (map (fromEnum . contains) pairs)
 solve2 :: [Pairs] -> Int
 solve2 pairs = sum (map (fromEnum . overlaps) pairs)
 
-part1 :: IO ()
-part1 = do
+main :: IO ()
+main = do
   pairs <- map intoPairs . lines <$> readFile filename
-  let count = solve1 pairs
-  print count
-
-part2 :: IO ()
-part2 = do
-  pairs <- map intoPairs . lines <$> readFile filename
-  let count = solve2 pairs
-  print count
+  let count1 = solve1 pairs
+  let count2 = solve2 pairs
+  printf "Part 1: %d, Part 2: %d" count1 count2
