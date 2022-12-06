@@ -39,9 +39,6 @@ testSignals14 =
     TestData {datum = testSignals !! 4, expectation = 26}
   ]
 
-dataExample =
-  [r||]
-
 spec :: Spec
 spec = do
   describe "solve1" $ do
