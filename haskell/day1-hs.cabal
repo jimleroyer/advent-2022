@@ -22,7 +22,7 @@ maintainer:         jimleroyer@gmail.com
 extra-source-files: CHANGELOG.md
 
 library
-    exposed-modules:  Day2, Day3, Day4, Day5, Day6
+    exposed-modules:  Day2, Day3, Day4, Day5, Day6, Day7
 
     -- Modules included in this library but not exported.
     -- other-modules:
@@ -34,6 +34,9 @@ library
                     , bytestring
                     , containers
                     , lens
+                    , megaparsec
+                    , monad-logger
+                    , parser-combinators
                     , raw-strings-qq
                     , regex-base
                     , regex-posix
@@ -62,6 +65,7 @@ Test-Suite advent-hs-testsuite
   hs-source-dirs:           test
   Build-depends:            advent-hs
                           , base
+                          , containers
                           , hspec
                           , QuickCheck
                           , raw-strings-qq
